@@ -109,6 +109,27 @@ void setup()
 
 void loop() 
 {
+  pinMode(LED_BUILTIN, OUTPUT);
+  pinMode(LED_PIN, OUTPUT);
+
+  Serial.begin(115200);
+  while (!Serial) { }
+  Serial.println("ESP32 Startup");
+
+  g_OLED.begin();
+  g_OLED.clear();
+  g_OLED.setFont(u8g2_font_profont15_tf);
+  g_lineHeight = g_OLED.getFontAscent() - g_OLED.getFontDescent();        // Descent is a negative number so we add it to the total
+
+  FastLED.addLeds<WS2812B, LED_PIN, GRB>(g_LEDs, NUM_LEDS);               // Add our LED strip to the FastLED library
+  FastLED.setBrightness(g_Brightness);
+  set_max_power_indicator_LED(LED_BUILTIN);                               // FastLED will light LED if power limiting
+  FastLED.setMaxPowerInMilliWatts(g_PowerLimit);
+}
+
+
+void loop() 
+{
   bool bLED = 0;
   float fps = 0;
   byte gHue = 0;

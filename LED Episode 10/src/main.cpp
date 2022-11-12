@@ -92,7 +92,7 @@ void loop()
     FastLED.show(g_Brightness);                          //  Show and delay
 
     EVERY_N_MILLISECONDS(250)
-    {
+    {5rd
       g_OLED.clearBuffer();
       g_OLED.setCursor(0, g_lineHeight);
       g_OLED.printf("FPS  : %u", FastLED.getFPS());
